@@ -53,7 +53,7 @@ pipeline {
 
     environment {
         // Set the Docker image name
-        DOCKER_IMAGE_NAME = 'my-python-app'
+        DOCKER_IMAGE_NAME = 'viiky/jenkins'
         DOCKER_IMAGE_TAG = 'latest'
     }
 
