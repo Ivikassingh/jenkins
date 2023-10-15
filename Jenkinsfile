@@ -41,7 +41,7 @@ pipeline {
             steps {
                 script {
                     // SSH into the EC2 instance
-                    sshagent(['sshec2']) {
+                    sshagent(credentials:['sshec2']) {
                         sh '''
                             ssh -o StrictHostKeyChecking=no ec2-user@EC2_IP "docker pull DOCKER_IMAGE_NAME:DOCKER_IMAGE_TAG"
                             ssh -o StrictHostKeyChecking=no ec2-user@EC2_IP "docker run -d -p 80:80 DOCKER_IMAGE_NAME:DOCKER_IMAGE_TAG"
