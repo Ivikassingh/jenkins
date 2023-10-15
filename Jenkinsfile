@@ -37,7 +37,6 @@ pipeline {
             }
         }
 
-   stages {
         stage('Deploy Docker Image to EC2') {
             steps {
                 script {
@@ -52,17 +51,5 @@ pipeline {
             }
         }
     }
-    }
 
-    post {
-        always {
-            echo 'This will always run'
-        }
-        success {
-            echo 'Job succeeded!'
-        }
-        failure {
-            echo 'Job failed!'
-        }
-    }
 }
