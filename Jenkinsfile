@@ -6,6 +6,7 @@ pipeline {
         // Set the Docker image name
         DOCKER_IMAGE_NAME = 'viiky/jenkins'
         DOCKER_IMAGE_TAG = 'latest'
+        EC2_IP = '54.236.30.253'
     }
 
     stages {
@@ -35,6 +36,22 @@ pipeline {
                 }
             }
         }
+
+   stages {
+        stage('Deploy Docker Image to EC2') {
+            steps {
+                script {
+                    // SSH into the EC2 instance
+                    sshagent(['sshec2']) {
+                        sh '''
+                            ssh -o StrictHostKeyChecking=no ec2-user@EC2_IP "docker pull DOCKER_IMAGE_NAME:DOCKER_IMAGE_TAG"
+                            ssh -o StrictHostKeyChecking=no ec2-user@EC2_IP "docker run -d -p 80:80 DOCKER_IMAGE_NAME:DOCKER_IMAGE_TAG"
+                        '''
+                    }
+                }
+            }
+        }
+    }
     }
 
     post {
